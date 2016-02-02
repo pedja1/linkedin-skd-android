@@ -5,32 +5,48 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LIAuthError {
+public class LIAuthError
+{
 
     private static final String TAG = LIAuthError.class.getName();
 
     private LIAppErrorCode errorCode;
     private String errorMsg;
 
-    public LIAuthError(String errorInfo, String errorMsg) {
-        LIAppErrorCode liAuthErrorCode = LIAppErrorCode.findErrorCode(errorInfo);
-        errorCode = liAuthErrorCode;
+    public LIAuthError(String errorInfo, String errorMsg)
+    {
+        errorCode = LIAppErrorCode.findErrorCode(errorInfo);
         this.errorMsg = errorMsg;
     }
 
-    public LIAuthError(LIAppErrorCode errorCode, String errorMsg) {
+    public LIAuthError(LIAppErrorCode errorCode, String errorMsg)
+    {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
 
+    public String getErrorMsg()
+    {
+        return errorMsg;
+    }
+
+    public LIAppErrorCode getErrorCode()
+    {
+        return errorCode;
+    }
+
     @Override
-    public String toString() {
-        try {
+    public String toString()
+    {
+        try
+        {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("errorCode", errorCode.name());
             jsonObject.put("errorMessage", errorMsg);
             return jsonObject.toString(2);
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             Log.d(TAG, e.getMessage());
         }
         return null;
